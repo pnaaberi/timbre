@@ -1,45 +1,76 @@
 # Timbre
 
-Timbre is a local-first, single-page sound A/B review tool. Load two audio files, mark exact regions, write listening notes, and export a structured sound-revision brief.
+**Timbre** is a local-first, single-page sound A/B review tool. Load two recordings, compare them on a shared timeline, mark exact regions, write listening notes, and export a structured sound-revision brief.
 
-## Use
+![Timbre waveform favicon](favicon.svg)
 
-Open `index.html` in a current desktop browser. No build step or server is required.
+## What it does
 
-1. Add local audio files or load the included online demo pair.
-2. Switch between reference A and candidate B on a shared timeline.
-3. Paint or enter a time range and save a Change or Keep note.
-4. Select **Build your prompt** to copy or download the revision brief.
+- Compares a reference recording **A** with a candidate recording **B**.
+- Shows browser-decoded peak-envelope waveforms on a shared time scale.
+- Supports playback, looping, seeking, A/B switching and optional RMS matching.
+- Lets you paint a region or enter exact start/end seconds.
+- Records **Change** and **Keep** notes with tags and desired results.
+- Builds a deterministic text brief. There is no AI call.
+- Saves lightweight session metadata locally when the browser allows it.
+
+## Quick start
+
+No build step or server is required for basic use:
+
+1. Download or clone the repository.
+2. Open `index.html` in a current browser.
+3. Choose **Add audio** and select two supported files, or load the online demo pair.
+4. Use **A** as the reference and **B** as the candidate.
+5. Paint a waveform region, or choose **Add by time** for millisecond precision.
+6. Describe what you hear, optionally describe the desired result, and save the note.
+7. Choose **Build your prompt**, then copy the brief or save it as a text file.
+
+For a local HTTP preview instead of `file://`:
+
+```bash
+python3 -m http.server 8765
+# open http://127.0.0.1:8765/
+```
+
+See the detailed [user guide](docs/USER_GUIDE.md) for controls, sessions and troubleshooting.
 
 ## Privacy and networking
 
-- Local audio is decoded in the browser and is not uploaded by Timbre.
-- Notes and file metadata may be saved in that browser's `localStorage` and may be exported in a session JSON file.
-- Audio bytes are not stored in `localStorage` or exported with the session.
-- The optional demo pair is fetched from the public VSCO 2 Community Edition repository on GitHub, with jsDelivr as a fallback.
-- Timbre makes no AI or analytics calls.
+Timbre is designed for local browser use:
 
-## Demo audio
+- Imported audio is decoded with the Web Audio API in the browser. Timbre has no upload endpoint.
+- Notes and file metadata may be saved in `localStorage`; audio bytes are not stored there.
+- A saved session JSON contains notes, filenames, relative file identifiers, durations and technical metadata. It does not contain audio bytes.
+- Reopening a session does not restore local `File` handles. Reselect the original files to reconnect audio.
+- The optional demo pair fetches two pinned public samples from VSCO 2 Community Edition on GitHub, with jsDelivr as a fallback.
+- Apart from the optional demo fetch, Timbre makes no analytics, AI or application-backend calls.
 
-The included demo references two cello samples from [VSCO 2 Community Edition](https://github.com/sgossner/VSCO-2-CE), published under [CC0 1.0](https://github.com/sgossner/VSCO-2-CE/blob/master/LICENSE). The app pins the demo files to upstream commit `440300901dfe9275fd84e0b7763af1f8443ae62e`.
+Read the complete [privacy and data-flow note](docs/PRIVACY.md) before using Timbre with sensitive filenames or notes.
 
-## Test
+## Supported audio and limits
 
-Requires Node.js 18 or newer:
+- WAV, MP3, OGG, FLAC, M4A, AAC, AIFF, AIF, OPUS and WebM when the browser can decode them.
+- Maximum imported file size: 64 MB.
+- Maximum decoded duration: 5 minutes per file.
+- Maximum library size: 250 files.
+- Waveforms are peak envelopes, not spectrograms or acoustic diagnoses.
+- RMS matching attenuates the louder full file. It is not perceptual LUFS normalization.
+
+Browser support and known limitations are documented in [USER_GUIDE.md](docs/USER_GUIDE.md).
+
+## Development
+
+Requires Node.js 18 or newer. The project has no npm runtime dependencies:
 
 ```bash
 npm test
 ```
 
-The test runs without installing packages.
+The tests load the deterministic core helpers directly from `index.html`. Development and release notes are in [DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
-## Known limitations
+## Demo audio and licensing
 
-- Imported local files must be reselected after reopening the page; the saved session reconnects notes by file metadata, not by storing audio.
-- Waveforms are peak envelopes, not spectrograms.
-- RMS matching attenuates the louder full file; it is not perceptual LUFS normalization.
-- Some compact controls are smaller than the ideal 44 × 44 CSS-pixel touch target. Keyboard focus styling is present, but assistive-technology testing has not been completed.
+The included cello demo references two samples from [VSCO 2 Community Edition](https://github.com/sgossner/VSCO-2-CE), published under [CC0 1.0](https://github.com/sgossner/VSCO-2-CE/blob/master/LICENSE). Demo URLs are pinned to upstream commit `440300901dfe9275fd84e0b7763af1f8443ae62e`.
 
-## License
-
-Timbre source is licensed under the [MIT License](LICENSE). Demo audio remains under its upstream CC0 license.
+Timbre source is licensed under the [MIT License](LICENSE). See [SECURITY.md](SECURITY.md) for responsible vulnerability reporting.
