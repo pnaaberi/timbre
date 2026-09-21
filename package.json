@@ -1,0 +1,13 @@
+{
+  "name": "timbre-sound-review",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local-first browser tool for A/B audio review and timestamped listening notes.",
+  "scripts": {
+    "test": "node tests/test-core.cjs"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

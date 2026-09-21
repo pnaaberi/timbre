@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Timbre waveform icon">
+  <title>Timbre waveform icon</title>
+  <rect width="64" height="64" rx="14" fill="#335944"/>
+  <g fill="none" stroke="#f7f8f5" stroke-width="6" stroke-linecap="round">
+    <path d="M14 27v10"/>
+    <path d="M23 20v24"/>
+    <path d="M32 13v38"/>
+    <path d="M41 21v22"/>
+    <path d="M50 28v8"/>
+  </g>
+</svg>
