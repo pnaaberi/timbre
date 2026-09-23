@@ -58,6 +58,14 @@ Coverage includes horizontal/Shift-wheel navigation, wheel units, untouched vert
 
 The supported interaction design uses standard Wheel/Pointer/Keyboard events and native controls, with the timeline slider as a fallback. Codec support, browser storage and OS audio availability still vary. A universal hardware/platform guarantee is not possible.
 
+### Hosted runner verification — 23 September 2026
+
+[CI run 35848000426](https://github.com/pnaaberi/timbre/actions/runs/35848000426), source `820f105`, passed the complete browser suite without playback skips:
+- Ubuntu 24.04: Chromium 153.0.8010.12, Firefox 155.0 and WebKit 26.6;
+- Windows Server 2025 and macOS 15: Chromium 153.0.8010.12.
+
+Linux used a virtual audio output; the earlier local Firefox playback limitation does not apply to that successful hosted run. Tests include opt-in demo networking, >3 MB session round-trip, oversize rejection, navigation, draft/session recovery, error paths and file-URL smoke checks. This is hosted browser automation, not audible listening or physical-device certification.
+
 ## Architecture notes
 
 The first inline script exposes pure helpers through `TimbreCore`:
@@ -105,9 +113,11 @@ Before committing a behavior change:
 
 `.github/workflows/codeql.yml` runs JavaScript security-extended analysis on pull requests, main and a weekly schedule. All referenced actions are commit-pinned. Test jobs cannot write repository contents; CodeQL may upload security events. `.github/dependabot.yml` opens weekly npm and Actions updates. Keep the scanner version/checksum current during maintenance.
 
+After analysis, `tests/check-codeql.cjs` requires generated SARIF reports and rejects any reported findings. This gate is part of the required CodeQL analysis job; an analysis/upload success alone is insufficient. Core tests cover empty, non-empty and malformed result handling. No CodeQL alert suppression is configured.
+
 Review **all** job failures, warnings and Security alerts before merging. CI runner coverage is not physical-device certification. The earlier local compatibility table records local evidence only; current cross-OS assurance comes from the specific passing GitHub run, not from the presence of a matrix in YAML.
 
-Release procedure: create a feature-branch PR; inspect the complete diff and all checks; merge only passing required checks; verify the exact main SHA and a fresh HTTPS checkout; then deploy only to an explicitly selected hosting destination. Main branch protection and repository settings should be read back via GitHub after changes. Do not bypass checks with administrator merges or force pushes.
+Release procedure: create a feature-branch PR; inspect the complete diff and all checks; merge only passing required checks; verify the exact main SHA and a fresh HTTPS checkout; then deploy only to an explicitly selected hosting destination. Recheck CodeQL **alerts on main after merging**: a successful analysis job does not itself mean zero alerts, and PR results may omit pre-existing findings. Main branch protection and repository settings should be read back via GitHub after changes. Do not bypass checks with administrator merges or force pushes.
 
 ## Release scope
 
