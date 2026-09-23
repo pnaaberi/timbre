@@ -101,7 +101,7 @@ Before committing a behavior change:
 `.github/workflows/ci.yml` runs on pull requests and main updates:
 - core/helper and inline-script syntax tests, `npm audit --audit-level=low`;
 - Gitleaks 8.30.1 over reachable history, with a pinned archive SHA-256 and redacted findings;
-- Playwright Chromium/Firefox/WebKit on Linux plus Chromium on Windows/macOS. Linux jobs use a disposable virtual audio sink; no playback skip is configured in CI.
+- Playwright Chromium/Firefox/WebKit on Ubuntu 24.04 plus Chromium on Windows Server 2025 and macOS 15 hosted runners. Runner labels are explicit, avoiding silent `*-latest` migrations. Linux jobs use a disposable virtual audio sink; no playback skip is configured in CI.
 
 `.github/workflows/codeql.yml` runs JavaScript security-extended analysis on pull requests, main and a weekly schedule. All referenced actions are commit-pinned. Test jobs cannot write repository contents; CodeQL may upload security events. `.github/dependabot.yml` opens weekly npm and Actions updates. Keep the scanner version/checksum current during maintenance.
 

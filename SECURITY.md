@@ -23,6 +23,8 @@ This is a small personal open-source project, so response time is best effort. R
 
 GitHub secret scanning and push protection, Dependabot alerts/security updates, and private vulnerability reporting are enabled. The repository defines weekly npm/GitHub Actions dependency-update PRs, a checksum-pinned Gitleaks history scan, dependency audit, cross-platform browser checks, and CodeQL JavaScript analysis. Workflow actions are commit-pinned, checkout does not persist credentials, and ordinary test jobs have read-only repository access. CodeQL alone receives security-event upload permission.
 
+GitHub Actions requires full-SHA action references at repository level, defaults to read-only workflow tokens, and cannot approve pull requests. Runner OS labels are explicit rather than `*-latest`. Main is intended to require pull requests, passing quality/security/browser checks and resolved conversations, including for administrators; verify the current protection settings before release.
+
 A green scan is bounded evidence, not a guarantee that every vulnerability or secret has been found. Check the latest Actions runs and Security alerts before releasing. No raw audio, session JSON, real-user notes or private QA artifacts belong in CI uploads or source control.
 
 ## Out of scope
