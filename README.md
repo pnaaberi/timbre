@@ -10,6 +10,8 @@
 - Shows browser-decoded peak-envelope waveforms on a shared time scale.
 - Supports playback, looping, seeking, A/B switching and optional RMS matching.
 - Lets you paint a region or enter exact start/end seconds.
+- Supports horizontal/Shift-wheel scrolling, mouse/pen/touch Pan mode, keyboard panning and anchored zoom.
+- Optionally follows playback; backs up unsaved drafts locally when storage is available.
 - Records **Change** and **Keep** notes with tags and desired results.
 - Builds a deterministic text brief. There is no AI call.
 - Saves lightweight session metadata locally when the browser allows it.
@@ -61,13 +63,13 @@ Browser support and known limitations are documented in [USER_GUIDE.md](docs/USE
 
 ## Development
 
-Requires Node.js 18 or newer. The project has no npm runtime dependencies:
+Core tests require Node.js 18 or newer; optional Playwright browser tests require Node.js 20 or newer. The app has no npm runtime dependencies:
 
 ```bash
 npm test
 ```
 
-The tests load the deterministic core helpers directly from `index.html`. Development and release notes are in [DEVELOPMENT.md](docs/DEVELOPMENT.md).
+Core tests also compile every inline script. Optional cross-browser regression tests and the verified compatibility matrix are documented in [DEVELOPMENT.md](docs/DEVELOPMENT.md). Browser automation is not a guarantee for every OS, codec or physical input/audio device.
 
 ## Demo audio and licensing
 

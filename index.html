@@ -19,6 +19,17 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
 @media(max-width:800px){.topbar-inner{min-height:70px;padding:0 22px;gap:16px}.top-actions{gap:6px}.button{font-size:11px;padding:9px 11px}.top-actions>#import-folder{display:none}.top-actions>#open-library .count{display:none}main{padding:26px 22px 0}.intro{margin-bottom:24px}h1{font-size:28px}.intro p{font-size:12px;max-width:470px}.workspace-grid{grid-template-columns:minmax(0,1fr);gap:24px}.waveform{height:141px}.track-meta{display:block;font-size:9px}.file-name{max-width:420px}.toolbar-hint{display:block}.transport{flex-wrap:nowrap;gap:16px}.volume-label input{width:65px}.sidebar{grid-template-columns:1fr 1fr;gap:16px;align-items:start}.editor{grid-row:span 2}.prompt-action{grid-column:2}.editor-empty{padding:17px 0 8px}.goal-panel{align-self:start}.page-footer{margin-top:24px;gap:16px;align-items:flex-start;padding:16px 0;font-size:8px}.page-footer>span{max-width:50%}.page-footer .text-button{font-size:8px}.footer-divider{display:none}#session-status{display:none}.panel{padding:17px}.panel-heading .tiny-label{font-size:7px}.transport-footnote>span:last-child{display:block}.wave-caption{font-size:9px}#duration-caption{display:block}.preference-row{flex-wrap:nowrap}.volume-label{margin-left:0}}
 @media(max-width:550px){.topbar-inner{padding:0 17px}.brand{font-size:23px}.brand-mark{gap:2px}.top-actions>#open-library{padding:8px}.top-actions>#open-library>span:not(.count){display:none}.top-actions>#import-files{padding:8px 10px;min-height:35px;font-size:10px}.top-actions .icon{width:15px;height:15px}main{padding:23px 17px 0}.eyebrow{font-size:8px;letter-spacing:1.4px}h1{font-size:27px;max-width:325px;line-height:1.2;letter-spacing:-.9px}.intro p{font-size:11px;line-height:1.75;max-width:330px}.intro{margin-bottom:20px}.toolbar-hint{display:none}.workspace-toolbar{margin-bottom:11px}.tool{font-size:10px;padding:5px 8px}.zoom-label{display:none}.wave-card{padding:14px 14px 10px}.wave-stack{gap:12px}.track-header{gap:6px;margin-bottom:6px}.track-identity{gap:9px}.track-letter{height:32px;width:29px;font-size:12px;border-radius:6px}.track-role{font-size:7px;letter-spacing:1.2px}.file-name{max-width:210px;font-size:11px}.track-meta{display:none}.waveform{height:130px}.track-footer{margin-top:1px;padding-top:3px}.file-detail{font-size:7px}.track-status{font-size:7px}.wave-caption{font-size:8px;margin:10px 1px 12px}#duration-caption{display:none}.transport{gap:11px;flex-wrap:wrap;padding:10px}.playback-buttons{gap:6px}.play-button{width:33px;height:33px}.time-display{font-size:10px;min-width:63px}.time-display>span+span{font-size:8px}.listen-switch{margin-left:auto}.listen-switch button{width:27px;height:26px}.loop-button{margin-left:2px;font-size:9px;gap:5px}.match-label{margin-left:29px;margin-top:2px}.volume-label{margin-left:auto}.volume-label input{width:75px}.transport-footnote{font-size:8px}.transport-footnote>span:last-child{font-size:7px}.transport-footnote kbd{font-size:7px;min-width:12px;padding:0 2px}.transport-footnote .key-sep{display:none}.notes-section{margin-top:22px}.section-heading h2{font-size:11px}.notes-empty{padding:17px;min-height:78px}.notes-empty p{font-size:10px}.notes-empty p>span{font-size:9px}.workspace-grid{gap:21px}.sidebar{grid-template-columns:1fr;gap:13px}.editor{grid-row:auto}.prompt-action{grid-column:auto}.panel{padding:18px}.editor-empty{padding:19px 0 13px}.editor-empty p{max-width:245px}.brush-illustration{margin-bottom:16px}.legend{margin:17px 0}.goal-panel textarea{min-height:55px}.preference-row{flex-wrap:nowrap}.prompt-action{margin-top:2px}.prompt-action .generate{min-height:45px}.page-footer{margin-top:24px;font-size:8px}.page-footer>span:last-child{max-width:45%}.track-header-right .audition-button{width:28px;height:28px}.note-card{gap:9px;padding:11px}.note-topline{gap:5px;flex-wrap:wrap;font-size:8px}.note-card p{font-size:10px}.note-number{width:23px;height:23px;font-size:9px}dialog{padding:21px;max-width:calc(100vw - 24px);border-radius:12px}.dialog-heading h2{font-size:22px}.dialog-description{font-size:11px;margin:12px 0 16px}.library-controls{gap:6px;flex-wrap:wrap}.library-controls>input{flex-basis:100%;width:100%}.library-controls>.button{flex:1;min-height:32px;padding:6px 10px}.library-row{gap:9px;padding:10px}.library-row>.icon{display:none}.library-file-info>strong{font-size:10px}.library-file-info>span{font-size:8px}.assign-buttons{gap:4px}.assign-buttons>button{padding:5px 7px;font-size:9px}.session-actions{display:block}.session-actions>div+div{margin-top:12px}.session-actions .button{flex:1}.library-list{max-height:260px}.prompt-dialog textarea{font-size:10px;line-height:1.8;padding:13px;height:48vh}.prompt-dialog-footer{display:block;margin-top:15px}.prompt-dialog-footer>span{font-size:9px;display:block;max-width:none;margin-bottom:13px}.prompt-dialog-footer>div{display:flex;gap:8px}.prompt-dialog-footer .button{flex:1;font-size:10px;padding:9px}.help-content{font-size:11px}.toast{font-size:11px;bottom:17px;width:max-content;max-width:calc(100vw - 34px)}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+/* Navigation controls share the product palette and explicit sizing tokens. */
+:root{--touch-target:44px;--navigation-gap:8px;--navigation-font:11px}
+.waveform.pan-mode{cursor:grab;touch-action:pan-y pinch-zoom}
+.waveform.pan-mode:active{cursor:grabbing}
+.navigation-help{font-size:var(--navigation-font);color:var(--muted);margin-block:var(--navigation-gap)}
+.pan-wrap{flex-wrap:wrap;gap:var(--navigation-gap)}
+.pan-wrap #pan{min-width:0;min-height:var(--touch-target)}
+.pan-wrap .follow-label{display:flex;align-items:center;gap:var(--navigation-gap);min-height:var(--touch-target)}
+.pan-wrap .follow-label input{flex:none;accent-color:var(--green)}
+@media(any-pointer:coarse),(max-width:550px){.tool,.icon-button,.audition-button,.listen-switch button,.loop-button,.text-button,.tag-list button,.assign-buttons button,select{min-width:var(--touch-target);min-height:var(--touch-target)}.workspace-toolbar{flex-wrap:wrap}.toolbar-hint{display:none}.transport{flex-wrap:wrap}.waveform.seek-mode{touch-action:pan-y pinch-zoom}}
+@media(max-width:550px){.pan-wrap #pan,.navigation-help{flex-basis:100%}}
 </style>
 </head>
 <body>
@@ -56,13 +67,13 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
 <div id="banner" class="banner" role="status" hidden></div>
 <div class="workspace-grid">
 <section class="comparison" aria-label="Audio comparison">
-<div class="workspace-toolbar"><div class="tool-switch" role="group" aria-label="Waveform interaction"><button id="tool-paint" class="tool active" aria-pressed="true"><svg class="icon"><use href="#i-paint"/></svg>Paint</button><button id="tool-seek" class="tool" aria-pressed="false"><svg class="icon"><use href="#i-cursor"/></svg>Seek</button></div><span class="toolbar-hint" id="toolbar-hint">Click + drag to select a region</span><div class="toolbar-end"><label class="zoom-label" for="zoom">Zoom</label><select id="zoom" aria-label="Waveform zoom"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select><span class="separator"></span><button id="undo" class="icon-button" aria-label="Undo last note change" title="Undo last note change (Ctrl/⌘ Z)" disabled><svg class="icon"><use href="#i-undo"/></svg></button></div></div>
+<div class="workspace-toolbar"><div class="tool-switch" role="group" aria-label="Waveform interaction"><button id="tool-paint" class="tool active" aria-pressed="true"><svg class="icon"><use href="#i-paint"/></svg>Paint</button><button id="tool-seek" class="tool" aria-pressed="false"><svg class="icon"><use href="#i-cursor"/></svg>Seek</button><button id="tool-pan" class="tool" aria-pressed="false" title="Drag the zoomed waveform with mouse, pen or touch">Pan</button></div><span class="toolbar-hint" id="toolbar-hint">Drag to select a region</span><div class="toolbar-end"><label class="zoom-label" for="zoom">Zoom</label><select id="zoom" aria-label="Waveform zoom"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select><span class="separator"></span><button id="undo" class="icon-button" aria-label="Undo last note change" title="Undo last note change (Ctrl/⌘ Z)" disabled><svg class="icon"><use href="#i-undo"/></svg></button></div></div>
 <div class="wave-stack" id="drop-area">
 <article class="wave-card track-a" id="card-A"><div class="track-header"><div class="track-identity"><span class="track-letter">A</span><div><div class="track-role">REFERENCE</div><button class="file-name" id="file-A" title="Choose reference file">Cello · sustained bow <span>⌄</span></button></div></div><div class="track-header-right"><span class="track-meta" id="meta-A">Online demo</span><button id="monitor-A" class="audition-button" aria-label="Play reference A"><svg class="icon"><use href="#i-play"/></svg></button></div></div><div class="waveform" id="wave-A" tabindex="0" role="group" aria-label="Reference A waveform. Drag to paint a region, or use Add by time below."><canvas id="canvas-A" aria-label="Reference A peak envelope"></canvas><div class="wave-empty" id="empty-A"><span>Loading the recorded demo…</span></div></div><div class="track-footer"><span class="file-detail" id="detail-A">VSCO 2 CE · sustain with vibrato</span><span class="track-status" id="status-A">REFERENCE</span></div></article>
 <article class="wave-card track-b" id="card-B"><div class="track-header"><div class="track-identity"><span class="track-letter">B</span><div><div class="track-role">CANDIDATE</div><button class="file-name" id="file-B" title="Choose candidate file">Cello · tremolo bow <span>⌄</span></button></div></div><div class="track-header-right"><span class="track-meta" id="meta-B">Online demo</span><button id="monitor-B" class="audition-button" aria-label="Play candidate B"><svg class="icon"><use href="#i-play"/></svg></button></div></div><div class="waveform" id="wave-B" tabindex="0" role="group" aria-label="Candidate B waveform. Drag to paint a region, or use Add by time below."><canvas id="canvas-B" aria-label="Candidate B peak envelope"></canvas><div class="wave-empty" id="empty-B"><span>Loading the recorded demo…</span></div></div><div class="track-footer"><span class="file-detail" id="detail-B">VSCO 2 CE · tremolo</span><span class="track-status" id="status-B">CANDIDATE</span></div></article>
 <div class="drop-overlay" id="drop-overlay" hidden><svg class="icon"><use href="#i-upload"/></svg><strong>Drop your audio here</strong><span>Files stay on your device</span></div></div>
 <div class="wave-caption"><span><i class="small-dot"></i>Shared time &amp; amplitude scale</span><button class="text-button" id="clear-selection" hidden>Clear selection <span>Esc</span></button><span id="duration-caption">Original recordings · no processing</span></div>
-<div id="pan-wrap" class="pan-wrap" hidden><label for="pan">Timeline position</label><input id="pan" type="range" min="0" max="1000" value="0"><span id="pan-text">0.00 s</span></div>
+<div id="pan-wrap" class="pan-wrap" hidden><label for="pan">Timeline position</label><input id="pan" type="range" min="0" max="1000" value="0" aria-describedby="navigation-help"><span id="pan-text">0.00 s</span><label class="follow-label"><input id="follow-playhead" type="checkbox">Follow playback</label><p class="navigation-help" id="navigation-help">Scroll sideways or Shift + wheel. Choose Pan to drag with mouse, pen or touch. On a focused waveform: Shift + ←/→ pans, Home/End jumps to the edges.</p></div>
 <div class="transport" aria-label="Playback controls"><div class="playback-buttons"><button id="restart" class="icon-button" aria-label="Restart playback"><svg class="icon"><use href="#i-restart"/></svg></button><button id="play-toggle" class="play-button" aria-label="Play audio"><svg class="icon"><use href="#i-play"/></svg></button><div class="time-display"><span id="current-time">0:00.000</span><span id="total-time">/ 0:00.000</span></div></div><div class="listen-switch" role="group" aria-label="Listen to A or B"><button id="listen-A" class="active" aria-pressed="true">A</button><button id="listen-B" aria-pressed="false">B</button></div><button id="loop-toggle" class="loop-button active" aria-pressed="true" title="Loop the selected region, or the whole active file"><svg class="icon"><use href="#i-loop"/></svg><span>Loop</span></button><label class="match-label" title="Attenuate the louder file to match full-file RMS. Not perceptual loudness matching."><input type="checkbox" id="rms-match">RMS match</label><label class="volume-label"><svg class="icon"><use href="#i-volume"/></svg><input type="range" id="volume" min="0" max="1" step="0.01" value="0.65" aria-label="Monitor volume"></label></div>
 <div class="transport-footnote"><span id="playback-context">Listening to <strong>A</strong> · original levels</span><span><kbd>Space</kbd> play / pause <span class="key-sep">·</span> <kbd>A</kbd> <kbd>B</kbd> switch</span></div>
 <section class="notes-section"><div class="section-heading"><h2>Your listening notes <span class="count" id="note-count">0</span></h2><button class="text-button" id="manual-region"><svg class="icon"><use href="#i-plus"/></svg>Add by time</button></div><div id="notes-list"><div class="notes-empty"><span class="empty-line"></span><p>Nothing marked yet.<span>Your first brushstroke starts a note.</span></p></div></div></section>
@@ -125,6 +136,17 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
   }
   const fileId = (path, size) => `local:${encodeURIComponent(String(path))}:${Number(size) || 0}`;
   const seconds = n => Number(n).toFixed(3);
+  function panForAnchor(total, zoom, anchor, fraction = .5) {
+    if (![total, zoom, anchor, fraction].every(Number.isFinite) || total <= 0 || zoom <= 1) return 0;
+    const span = total / zoom;
+    return clamp((anchor - clamp(fraction, 0, 1) * span) / (total - span), 0, 1);
+  }
+  function horizontalWheel(event, width) {
+    const x = Number(event.deltaX) || 0, y = Number(event.deltaY) || 0;
+    const delta = event.shiftKey ? (Math.abs(x) > Math.abs(y) ? x : y) : Math.abs(x) > Math.abs(y) ? x : 0;
+    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? width : 1;
+    return Number.isFinite(delta * unit) ? delta * unit : 0;
+  }
   const quote = value => String(value || '').trim().split('\n').map(line => `  > ${line}`).join('\n');
   function makePrompt(session) {
     const files = new Map(session.files.map(f => [f.id, f]));
@@ -172,7 +194,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
       '', 'The prompt contains text and metadata only. Attach the referenced audio files separately to any tool that needs to hear them.');
     return out.join('\n');
   }
-  return { clamp, normalizeRange, clipRange, peakEnvelope, audioStats, fileId, seconds, makePrompt };
+  return { clamp, normalizeRange, clipRange, peakEnvelope, audioStats, fileId, seconds, makePrompt, panForAnchor, horizontalWheel };
 });
 </script>
 <script>window.TIMBRE_EMBEDDED = {};</script>
@@ -193,11 +215,12 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     files: new Map(DEMOS.map(f => [f.id, { ...f, demo: true, status: 'unloaded' }])),
     slots: { A: 'demo-a', B: 'demo-b' }, active: 'A', notes: [], draft: null, selectedId: null,
     selection: null, editorDirty: false, history: [], preferred: null, goal: '',
-    tool: 'paint', zoom: 1, pan: 0, playing: false, position: 0, loop: true, match: false, volume: .65,
+    tool: 'paint', zoom: 1, pan: 0, follow: false, playing: false, position: 0, loop: true, match: false, volume: .65,
     loadTokens: { A: 0, B: 0 }, loadingSlots: {}, importTarget: null, drag: null
   };
   let audioContext, playInfo, voices = [], playToken = 0, frameId, saveTimer, toastTimer, resizeObserver;
   let isImporting = false;
+  let storageWarningShown = false;
   const icon = name => `<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`;
   const el = (tag, className, text) => { const n = document.createElement(tag); if (className) n.className = className; if (text !== undefined) n.textContent = text; return n; };
   const fFor = side => S.files.get(S.slots[side]);
@@ -274,7 +297,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
   }
   async function assign(side, id, options = {}) {
     const file = S.files.get(id); if (!file) return false;
-    if (!options.force && S.editorDirty) { toast('Save or discard the current note before changing files.'); return false; }
+    if (!options.force && S.editorDirty && S.slots[side] !== id) { toast('Save or discard the current note before changing files.'); return false; }
     const token = ++S.loadTokens[side]; S.loadingSlots[side] = id; renderTracks(); renderLibrary();
     try {
       await decode(file);
@@ -287,7 +310,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
       pause();
       S.slots[side] = id;
       if (S.draft && !sideFor(S.draft.fileId)) clearSelection();
-      S.position = 0; S.zoom = 1; S.pan = 0; $('zoom').value = '1'; $('pan').value = '0';
+      S.position = S.selection?.start || 0; S.zoom = 1; S.pan = 0; $('zoom').value = '1'; syncPan();
       if (S.slots.A === S.slots.B) toast('A and B currently use the same file. Choose different recordings to compare.');
       if (readyCount() === 2) $('banner').hidden = true;
       persist(); return true;
@@ -381,7 +404,14 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     stopVoices(); S.playing = false; cancelAnimationFrame(frameId);
     const token = ++playToken;
     try {
-      const ctx = getContext(); await ctx.resume(); if (token !== playToken) return;
+      const ctx = getContext();
+      let resumeTimer;
+      try {
+        await Promise.race([ctx.resume(),new Promise((_,reject)=>{
+          resumeTimer=setTimeout(()=>reject(new Error('Audio output did not start. Check browser permissions and your output device, then try again.')),5000);
+        })]);
+      } finally { clearTimeout(resumeTimer); }
+      if (token !== playToken) return;
       let offset = previousPosition;
       if (options.restart || offset < bounds.start || offset >= bounds.end - .001) offset = bounds.start;
       const source = ctx.createBufferSource(), gain = ctx.createGain();
@@ -402,9 +432,10 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
       if (S.loop) source.start(now, offset); else source.start(now, offset, bounds.end - offset);
       if (S.selection?.end > file.duration + .001) toast(`${side}'s selected region is clipped to its file end (${shortTime(file.duration)}).`);
       updateTransport(); tick();
-    } catch (error) { pause(); toast(`Playback failed: ${error.message}`); }
+    } catch (error) { if(token===playToken){pause();notice(`Playback failed: ${error.message}`);toast(`Playback failed: ${error.message}`);} }
   }
   function tick() {
+    if(S.follow&&S.playing&&!S.drag)revealPosition(currentPosition());
     if (!S.playing) return;
     $('current-time').textContent = formatTime(currentPosition()); drawAll();
     frameId = requestAnimationFrame(tick);
@@ -457,6 +488,23 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     $('manual-empty').disabled = !fFor(S.active)?.buffer;
   }
   function view() { const total = maxDuration(), span = total / S.zoom; return { start: S.pan * (total - span), span, total }; }
+  function syncPan(){
+    const v=view();
+    $('pan').value=String(S.pan*1000);
+    $('pan-text').textContent=shortTime(v.start);
+    $('pan').setAttribute('aria-valuetext',`${shortTime(v.start)} to ${shortTime(v.start+v.span)}`);
+  }
+  function setPan(value){
+    S.pan=S.zoom>1?C.clamp(value,0,1):0;
+    S.follow=false;$('follow-playhead').checked=false;
+    syncPan();drawAll();
+  }
+  function revealPosition(position){
+    const v=view();
+    if(S.zoom>1&&(position<v.start||position>v.start+v.span)){
+      S.pan=C.panForAnchor(v.total,S.zoom,position,.2);syncPan();drawAll();
+    }
+  }
   function niceStep(value) { const base = 10 ** Math.floor(Math.log10(Math.max(value, .0001))); const x = value/base; return (x <= 1 ? 1 : x <= 2 ? 2 : x <= 5 ? 5 : 10) * base; }
   function draw(side) {
     const canvas = $('canvas-' + side), box = $('wave-' + side), width = box.clientWidth, height = box.clientHeight;
@@ -532,21 +580,46 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
       }
     }
     $('library-count').textContent=String(S.files.size);
-    $('pan-wrap').hidden=S.zoom===1;$('pan-text').textContent=shortTime(view().start);$('pan').value=String(S.pan*1000);
+    $('pan-wrap').hidden=S.zoom===1;syncPan();
     updateTransport();drawAll();
   }
-  function snapshotForSave(){
-    return {schemaVersion:1,app:'Timbre',exportedAt:new Date().toISOString(),slots:{...S.slots},goal:S.goal,preferred:S.preferred,match:S.match,notes:S.notes.map(n=>({...n,tags:[...n.tags]})),files:Array.from(S.files.values()).map(f=>{
+  function snapshotForSave(includeDraft = false){
+    return {schemaVersion:1,app:'Timbre',exportedAt:new Date().toISOString(),...(includeDraft && S.editorDirty && S.draft ? {browserDraft:{note:{...S.draft},selectedId:S.selectedId,startText:$('region-start').value,endText:$('region-end').value}} : {}),slots:{...S.slots},goal:S.goal,preferred:S.preferred,match:S.match,notes:S.notes.map(n=>({...n,tags:[...n.tags]})),files:Array.from(S.files.values()).map(f=>{
       const result={id:f.id,name:f.name,path:f.path,bytes:f.bytes,lastModified:f.lastModified||0,demo:!!f.demo};
       for(const key of ['duration','sampleRate','channels','source','label'])if(f[key]!==undefined)result[key]=f[key];
       return result;
     })};
   }
-  function persist(){
-    clearTimeout(saveTimer);saveTimer=setTimeout(()=>{
-      try{localStorage.setItem(STORE,JSON.stringify(snapshotForSave()));$('session-status').textContent='Notes saved in this browser';}
-      catch(_){$('session-status').textContent='Use Save session to keep your notes';}
-    },180);
+  function flushSave(){
+    clearTimeout(saveTimer);
+    try {
+      localStorage.setItem(STORE, JSON.stringify(snapshotForSave(true)));
+      $('session-status').textContent = S.editorDirty ? 'Draft backed up in this browser; save to include in exports' : 'Notes saved in this browser';
+      storageWarningShown = false;
+    } catch (_) {
+      const message = 'Browser backup unavailable; save your note and export a session';
+      $('session-status').textContent = message;
+      if(!storageWarningShown){toast(message);storageWarningShown=true;}
+    }
+  }
+  function persist(){ clearTimeout(saveTimer); saveTimer = setTimeout(flushSave, 180); }
+  function restoreBrowserDraft(saved){
+    if (!saved?.note || !sideFor(saved.note.fileId)) return;
+    try {
+      // Reuse the session boundary; never trust stored text or file identities.
+      const data = snapshotForSave();
+      data.notes = [{...saved.note, id:'recovered-draft'}];
+      const note = validateSession(data).notes[0];
+      S.selectedId = S.notes.some(n => n.id === saved.selectedId && n.fileId === note.fileId) ? saved.selectedId : null;
+      S.draft = note; S.selection = {start:note.start,end:note.end};
+      S.active = sideFor(note.fileId); S.position = note.start;
+      renderEditor();
+      for (const [id, value] of [['region-start',saved.startText],['region-end',saved.endText]]) {
+        if (typeof value === 'string' && value.length <= 100) $(id).value = value;
+      }
+      markDirty(); renderNotes(); updateTransport();
+      toast('Unsaved draft recovered. Reselect its audio to listen; save the note to include it in exports.');
+    } catch (_) { notice('The stored draft could not be recovered. Saved notes are unchanged.'); }
   }
   function historyPush(){S.history.push(S.notes.map(n=>({...n,tags:[...n.tags]})));if(S.history.length>60)S.history.shift();$('undo').disabled=false;}
   function clearSelection(force=false){
@@ -554,6 +627,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     const wasPlaying=S.playing;if(wasPlaying)pause();
     S.draft=null;S.selectedId=null;S.selection=null;S.editorDirty=false;S.drag=null;
     renderEditor();renderNotes();updateTransport();drawAll();
+    persist();
   }
   function draftFor(side,start,end,note=null){
     if(S.editorDirty){toast('Save or discard this note before selecting another moment.');return;}
@@ -561,6 +635,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     const range=C.normalizeRange(start,end,file.duration);if(!range)return;
     pause();S.active=side;S.position=range.start;S.selection=range;S.selectedId=note?.id||null;
     S.draft=note?{...note,tags:[...note.tags]}:{fileId:file.id,...range,kind:'change',tags:[],heard:'',wanted:''};
+    revealPosition(range.start);
     S.editorDirty=false;renderEditor();renderNotes();updateTransport();drawAll();
   }
   function renderEditor(){
@@ -580,7 +655,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     $('cancel-note').textContent=S.selectedId?'Close note':'Discard selection';
     for(const button of $('tag-list').children){const chosen=draft.tags.includes(button.textContent);button.classList.toggle('active',chosen);button.setAttribute('aria-pressed',String(chosen));}
   }
-  function markDirty(){if(!S.draft)return;S.editorDirty=true;$('editor-label').textContent=`UNSAVED · ${sideFor(S.draft.fileId)}`;$('cancel-note').textContent='Discard changes';}
+  function markDirty(){if(!S.draft)return;S.editorDirty=true;$('editor-label').textContent=`UNSAVED · ${sideFor(S.draft.fileId)}`;$('cancel-note').textContent='Discard changes';persist();}
   function updateRangeInputs(){
     if(!S.draft)return false;
     const start=Number.parseFloat($('region-start').value),end=Number.parseFloat($('region-end').value),duration=S.files.get(S.draft.fileId)?.duration||0;
@@ -623,6 +698,11 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     const at=event=>{const rect=box.getBoundingClientRect(),v=view();return C.clamp(v.start+(event.clientX-rect.left)/rect.width*v.span,0,fFor(side)?.duration||0);};
     box.addEventListener('pointerdown',event=>{
       if(event.button!==0||event.target.closest('button')||!fFor(side)?.buffer)return;
+      if(S.tool==='pan'){
+        if(S.drag)return;
+        S.drag={side,pan:true,x:event.clientX,initialPan:S.pan,pointerId:event.pointerId};
+        box.setPointerCapture(event.pointerId);box.focus({preventScroll:true});return;
+      }
       if(S.editorDirty){toast('Save or discard the current note before selecting another moment.');return;}
       event.preventDefault();
       if(S.tool==='seek'){
@@ -630,11 +710,19 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
       }
       pause();S.drag={side,start:at(event),end:at(event),x:event.clientX,pointerId:event.pointerId};box.setPointerCapture(event.pointerId);drawAll();
     });
-    box.addEventListener('pointermove',event=>{if(S.drag?.side===side&&S.drag.pointerId===event.pointerId){S.drag.end=at(event);drawAll();}});
+    box.addEventListener('pointermove',event=>{
+      const drag=S.drag;
+      if(drag?.side!==side||drag.pointerId!==event.pointerId)return;
+      if(drag.pan){
+        const width=box.getBoundingClientRect().width;
+        setPan(drag.initialPan+(drag.x-event.clientX)/Math.max(width,1)/(S.zoom-1||1));
+      }else{drag.end=at(event);drawAll();}
+    });
     box.addEventListener('pointerup',event=>{
       if(S.drag?.side!==side||S.drag.pointerId!==event.pointerId)return;
       const drag=S.drag;drag.end=at(event);S.drag=null;
       if(box.hasPointerCapture(event.pointerId))box.releasePointerCapture(event.pointerId);
+      if(drag.pan)return;
       if(Math.abs(event.clientX-drag.x)<4){
         const note=pairNotes().find(n=>n.fileId===S.slots[side]&&drag.start>=n.start&&drag.start<=n.end);
         if(note)draftFor(side,note.start,note.end,note);else{S.active=side;S.position=drag.start;updateTransport();drawAll();toast('Drag left or right to paint a time range.');}
@@ -642,8 +730,32 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
         draftFor(side,drag.start,drag.end);if(S.draft)$('note-heard').focus({preventScroll:true});
       }
     });
-    box.addEventListener('pointercancel',()=>{S.drag=null;drawAll();});
-    box.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();S.active=side;manualRegion();}else if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();S.active=side;seek(currentPosition()+(event.key==='ArrowRight'?1:-1)*.1);}});
+    const cancelDrag=event=>{if(S.drag?.pointerId===event.pointerId){S.drag=null;drawAll();}};
+    box.addEventListener('pointercancel',cancelDrag);
+    box.addEventListener('lostpointercapture',cancelDrag);
+    box.addEventListener('wheel',event=>{
+      // Preserve ordinary page scroll and OS/browser pinch-to-zoom gestures.
+      if(S.zoom===1||event.ctrlKey||event.metaKey||S.drag)return;
+      const delta=C.horizontalWheel(event,box.clientWidth);
+      if(!delta)return;
+      event.preventDefault();
+      setPan(S.pan+delta/Math.max(box.clientWidth,1)/(S.zoom-1));
+    },{passive:false});
+    box.addEventListener('keydown',event=>{
+      if(event.ctrlKey||event.metaKey||event.altKey)return;
+      if(event.key==='Home'||event.key==='End'){
+        event.preventDefault();setPan(event.key==='Home'?0:1);return;
+      }
+      if(event.key==='Enter'){event.preventDefault();S.active=side;manualRegion();}
+      else if(event.key==='ArrowLeft'||event.key==='ArrowRight'){
+        event.preventDefault();const direction=event.key==='ArrowRight'?1:-1;
+        if(event.shiftKey){setPan(S.pan+direction*.2/(S.zoom-1||1));return;}
+        const position=currentPosition(),wasPlaying=S.playing;
+        if(wasPlaying)pause();
+        S.active=side;seek(position+direction*.1);revealPosition(S.position);
+        if(wasPlaying)play(side,{position:S.position});
+      }
+    });
   }
   function openLibrary(side=null){S.importTarget=side;renderLibrary();if(!$('library-dialog').open)$('library-dialog').showModal();}
   function renderLibrary(){
@@ -737,9 +849,24 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     finally{$('session-input').value='';}
   }
   function updatePreference(){for(const [id,value]of [['prefer-A','A'],['prefer-B','B'],['prefer-none',null]]){const active=S.preferred===value;$(id).classList.toggle('active',active);$(id).setAttribute('aria-pressed',String(active));}}
-  function setMode(mode){S.tool=mode;for(const [id,value]of [['tool-paint','paint'],['tool-seek','seek']]){$(id).classList.toggle('active',mode===value);$(id).setAttribute('aria-pressed',String(mode===value));}for(const side of ['A','B'])$('wave-'+side).classList.toggle('seek-mode',mode==='seek');$('toolbar-hint').textContent=mode==='paint'?'Click + drag to select a region':'Click to move the playhead';}
+  function setMode(mode){
+    S.tool=mode;
+    for(const value of ['paint','seek','pan']){
+      $('tool-'+value).classList.toggle('active',mode===value);
+      $('tool-'+value).setAttribute('aria-pressed',String(mode===value));
+    }
+    for(const side of ['A','B']){
+      $('wave-'+side).classList.toggle('seek-mode',mode==='seek');
+      $('wave-'+side).classList.toggle('pan-mode',mode==='pan');
+    }
+    $('toolbar-hint').textContent={paint:'Drag to select a region',seek:'Click to move the playhead',pan:'Drag to move the zoomed timeline'}[mode];
+  }
   function toggleLoop(){const wasPlaying=S.playing,pos=currentPosition();S.loop=!S.loop;if(wasPlaying){pause();play(S.active,{position:pos});}else updateTransport();}
-  function undo(){if(!S.history.length)return;S.notes=S.history.pop();clearSelection(true);renderAll();persist();toast('Last note change undone.');}
+  function undo(){
+    if(S.editorDirty){toast('Save or discard your current edits before undoing a saved note.');return;}
+    if(!S.history.length)return;
+    S.notes=S.history.pop();clearSelection(true);renderAll();persist();toast('Last note change undone.');
+  }
   function bind(){
     $('import-files').onclick=()=>{S.importTarget=null;$('file-input').click();};$('import-folder').onclick=()=>{S.importTarget=null;$('folder-input').click();};
     $('library-add').onclick=()=>$('file-input').click();$('library-folder').onclick=()=>$('folder-input').click();
@@ -751,9 +878,18 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
       $('monitor-'+side).onclick=()=>S.playing&&S.active===side?pause():setActive(side,true);
       setupWave(side);
     }
-    $('tool-paint').onclick=()=>setMode('paint');$('tool-seek').onclick=()=>setMode('seek');
-    $('zoom').onchange=()=>{S.zoom=Number($('zoom').value);S.pan=0;renderTracks();};
-    $('pan').oninput=()=>{S.pan=Number($('pan').value)/1000;$('pan-text').textContent=shortTime(view().start);drawAll();};
+    for(const mode of ['paint','seek','pan'])$('tool-'+mode).onclick=()=>setMode(mode);
+    $('zoom').onchange=()=>{
+      const v=view(), position=currentPosition();
+      const selected=S.selection ? (S.selection.start+S.selection.end)/2 : NaN;
+      const visible=t=>t>=v.start&&t<=v.start+v.span;
+      const anchor=visible(selected)?selected:visible(position)?position:v.start+v.span/2;
+      S.zoom=Number($('zoom').value);
+      S.pan=C.panForAnchor(v.total,S.zoom,anchor,(anchor-v.start)/v.span);
+      renderTracks();
+    };
+    $('pan').oninput=()=>setPan(Number($('pan').value)/1000);
+    $('follow-playhead').onchange=()=>{S.follow=$('follow-playhead').checked;if(S.follow)revealPosition(currentPosition());};
     $('play-toggle').onclick=()=>S.playing?pause():play();
     $('restart').onclick=()=>{const wasPlaying=S.playing;pause();S.position=S.selection?.start||0;if(wasPlaying)play(S.active,{restart:true});else{updateTransport();drawAll();}};
     $('loop-toggle').onclick=toggleLoop;$('rms-match').onchange=()=>{S.match=$('rms-match').checked;updateGains();persist();};$('volume').oninput=()=>{S.volume=Number($('volume').value);updateGains();};
@@ -764,7 +900,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     for(const button of $('tag-list').children)button.onclick=()=>{if(!S.draft)return;const tag=button.textContent,at=S.draft.tags.indexOf(tag);if(at<0)S.draft.tags.push(tag);else S.draft.tags.splice(at,1);button.classList.toggle('active',at<0);button.setAttribute('aria-pressed',String(at<0));markDirty();};
     $('note-heard').oninput=()=>{if(S.draft){S.draft.heard=$('note-heard').value;markDirty();}};
     $('note-wanted').oninput=()=>{if(S.draft){S.draft.wanted=$('note-wanted').value;markDirty();}};
-    for(const id of ['region-start','region-end'])$(id).oninput=()=>{markDirty();updateRangeInputs();};
+    for(const id of ['region-start','region-end'])$(id).oninput=()=>{updateRangeInputs();markDirty();};
     $('audition-region').onclick=()=>{if(updateRangeInputs())play(sideFor(S.draft.fileId),{restart:true});};
     $('delete-note').onclick=()=>{if(!S.selectedId)return;historyPush();S.notes=S.notes.filter(n=>n.id!==S.selectedId);clearSelection(true);renderAll();persist();toast('Note removed. Undo is available.');};
     $('undo').onclick=undo;
@@ -772,7 +908,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     for(const [id,value]of [['prefer-A','A'],['prefer-B','B'],['prefer-none',null]])$(id).onclick=()=>{S.preferred=value;updatePreference();persist();};
     $('generate-prompt').onclick=buildPrompt;$('prompt-close').onclick=()=>$('prompt-dialog').close();$('copy-prompt').onclick=copyPrompt;
     $('download-prompt').onclick=()=>download($('prompt-text').value,'timbre-sound-brief.txt','text/plain;charset=utf-8');
-    $('save-session').onclick=()=>{download(JSON.stringify(snapshotForSave(),null,2),'timbre-session.json','application/json');toast('Session exported. Audio is not included.');};
+    $('save-session').onclick=()=>{if(S.editorDirty){toast('Save or discard your draft before exporting a session.');return;}download(JSON.stringify(snapshotForSave(),null,2),'timbre-session.json','application/json');toast('Session exported. Audio is not included.');};
     $('restore-session').onclick=()=>$('session-input').click();$('session-input').onchange=e=>restoreSession(e.target.files[0]);
     $('load-demo').onclick=async()=>{if(S.editorDirty){toast('Save or discard the current note first.');return;}await Promise.all([assign('A','demo-a'),assign('B','demo-b')]);};
     $('swap-files').onclick=()=>{if(S.editorDirty){toast('Save or discard the current note first.');return;}pause();const a=S.slots.A;S.slots.A=S.slots.B;S.slots.B=a;S.active=S.active==='A'?'B':'A';S.preferred=S.preferred==='A'?'B':S.preferred==='B'?'A':null;updatePreference();renderAll();renderEditor();persist();toast('A and B swapped. Notes still belong to the original files.');};
@@ -797,12 +933,17 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     document.addEventListener('dragleave',()=>{dragDepth=Math.max(0,dragDepth-1);if(!dragDepth)$('drop-overlay').hidden=true;});
     document.addEventListener('drop',event=>{event.preventDefault();dragDepth=0;$('drop-overlay').hidden=true;const entries=Array.from(event.dataTransfer?.items||[]).map(i=>i.webkitGetAsEntry?.());if(entries.some(e=>e?.isDirectory)){toast('Use Import folder in the Library to include a folder and its subfolders.');return;}S.importTarget=null;importFiles(event.dataTransfer.files);});
     document.querySelector('.brand').onclick=event=>event.preventDefault();
-    window.addEventListener('beforeunload',()=>{try{localStorage.setItem(STORE,JSON.stringify(snapshotForSave()));}catch(_){};});
+    window.addEventListener('beforeunload',event=>{
+      flushSave();
+      if(S.editorDirty){event.preventDefault();event.returnValue='';}
+    });
+    document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flushSave();});
+    window.addEventListener('pagehide',flushSave);
     resizeObserver=new ResizeObserver(drawAll);resizeObserver.observe($('wave-A'));resizeObserver.observe($('wave-B'));
   }
   function init(){
     bind();let restored=false;
-    try{const saved=localStorage.getItem(STORE);if(saved){applySession(JSON.parse(saved));restored=true;}}
+    try{const saved=localStorage.getItem(STORE);if(saved){const data=JSON.parse(saved);applySession(data);restoreBrowserDraft(data.browserDraft);restored=true;}}
     catch(_){$('session-status').textContent='Use Save session to keep your notes';}
     $('goal').value=S.goal;updatePreference();renderAll();
     if(window.TIMBRE_EMBEDDED?.['demo-a']&&window.TIMBRE_EMBEDDED?.['demo-b'])$('demo-network-note').textContent='Both recorded demo files are embedded in this HTML. Imported files, waveform analysis, notes and prompt assembly stay in this browser. No network request is needed. Notes may be saved locally, but audio is not saved in browser storage. Export a session and reselect original custom files when restoring it.';
