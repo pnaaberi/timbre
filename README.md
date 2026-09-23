@@ -1,5 +1,8 @@
 # Timbre
 
+[![CI](https://github.com/pnaaberi/timbre/actions/workflows/ci.yml/badge.svg)](https://github.com/pnaaberi/timbre/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/pnaaberi/timbre/actions/workflows/codeql.yml/badge.svg)](https://github.com/pnaaberi/timbre/actions/workflows/codeql.yml)
+
 **Timbre** is a local-first, single-page sound A/B review tool. Load two recordings, compare them on a shared timeline, mark exact regions, write listening notes, and export a structured sound-revision brief.
 
 ![Timbre waveform favicon](favicon.svg)
@@ -45,7 +48,7 @@ Timbre is designed for local browser use:
 - Notes and file metadata may be saved in `localStorage`; audio bytes are not stored there.
 - A saved session JSON contains notes, filenames, relative file identifiers, durations and technical metadata. It does not contain audio bytes.
 - Reopening a session does not restore local `File` handles. Reselect the original files to reconnect audio.
-- The optional demo pair fetches two pinned public samples from VSCO 2 Community Edition on GitHub, with jsDelivr as a fallback.
+- The optional demo pair fetches two pinned public samples from VSCO 2 Community Edition on GitHub, with jsDelivr as a fallback, only after an explicit Load demo action. Opening or restoring a session does not fetch demo audio.
 - Apart from the optional demo fetch, Timbre makes no analytics, AI or application-backend calls.
 
 Read the complete [privacy and data-flow note](docs/PRIVACY.md) before using Timbre with sensitive filenames or notes.
@@ -56,6 +59,7 @@ Read the complete [privacy and data-flow note](docs/PRIVACY.md) before using Tim
 - Maximum imported file size: 64 MB.
 - Maximum decoded duration: 5 minutes per file.
 - Maximum library size: 250 files.
+- Session JSON: at most 32 MB and 5,000 notes. Saving/exporting checks the same schema and size boundary used by import.
 - Waveforms are peak envelopes, not spectrograms or acoustic diagnoses.
 - RMS matching attenuates the louder full file. It is not perceptual LUFS normalization.
 

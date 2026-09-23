@@ -204,6 +204,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
   const C = window.TimbreCore;
   const $ = id => document.getElementById(id);
   const MAX_FILES = 250, MAX_BYTES = 64 * 1024 * 1024, MAX_DURATION = 300;
+  const MAX_SESSION_BYTES = 32 * 1024 * 1024, MAX_NOTES = 5000;
   const STORE = 'timbre-session-v1';
   const TAGS = ['Attack', 'Harshness', 'Noise', 'Body', 'Pitch', 'Tail'];
   const EXT = /\.(wav|mp3|ogg|flac|m4a|aac|aiff?|opus|webm)$/i;
@@ -575,7 +576,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
       $('detail-'+side).textContent=file?.demo?`${file.name} · CC0`:(file?.path||'Import a file or folder to get started');
       const empty=$('empty-'+side);empty.hidden=Boolean(file?.buffer);empty.replaceChildren();
       if(!file?.buffer){
-        empty.append(el('span','',loading||file?.status==='loading'?'Loading recorded audio…':file?.status==='missing'?'Reselect this file to reconnect your notes':file?.demo?'The demo needs an internet connection':'No audio loaded'));
+        empty.append(el('span','',loading||file?.status==='loading'?'Loading recorded audio…':file?.status==='missing'?'Reselect this file to reconnect your notes':file?.demo?'Choose Load demo to download audio, or add local files':'No audio loaded'));
         const button=el('button','button',file?.demo?'Load demo':'Add audio');button.type='button';button.onclick=e=>{e.stopPropagation();if(file?.demo)assign(side,file.id);else{S.importTarget=side;$('file-input').click();}};empty.append(button);button.disabled=loading;
       }
     }
@@ -669,9 +670,13 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     event?.preventDefault();if(!S.draft||!updateRangeInputs())return;
     const heard=$('note-heard').value.trim(),wanted=$('note-wanted').value.trim();
     if(!heard){$('editor-error').textContent='Add a listening observation before saving.';$('editor-error').hidden=false;$('note-heard').focus();return;}
-    historyPush();
     const note={...S.draft,id:S.selectedId||`note-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`,heard,wanted,tags:[...S.draft.tags]};
-    const at=S.notes.findIndex(n=>n.id===note.id);if(at>=0)S.notes[at]=note;else S.notes.push(note);
+    const at=S.notes.findIndex(n=>n.id===note.id);
+    const notes=[...S.notes];
+    if(at>=0)notes[at]=note;else notes.push(note);
+    try { sessionJSON({...snapshotForSave(),notes}); }
+    catch(error){$('editor-error').textContent=error.message;$('editor-error').hidden=false;return;}
+    historyPush(); S.notes=notes;
     S.selectedId=note.id;S.draft={...note,tags:[...note.tags]};S.editorDirty=false;
     renderEditor();renderNotes();drawAll();persist();toast(at>=0?'Note updated.':'Note saved. Paint another moment, or build your prompt.');
   }
@@ -805,7 +810,8 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     }
   }
   function validateSession(data){
-    if(!data||data.schemaVersion!==1||!Array.isArray(data.files)||!Array.isArray(data.notes)||data.files.length>MAX_FILES+2||data.notes.length>5000)throw new Error('Not a supported Timbre session.');
+    if(!data||data.schemaVersion!==1||!Array.isArray(data.files)||!Array.isArray(data.notes)||data.files.length>MAX_FILES+2)throw new Error('Not a supported Timbre session.');
+    if(data.notes.length>MAX_NOTES)throw new Error('A session supports at most 5000 notes. Export this session and start another.');
     const files=new Map();
     const bounded=(v,max)=>typeof v==='string'&&v.length<=max;
     for(const input of data.files){
@@ -832,6 +838,16 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     }
     return {files,notes,slots:{A:data.slots.A,B:data.slots.B},goal:typeof data.goal==='string'?data.goal.slice(0,4000):'',preferred:['A','B'].includes(data.preferred)?data.preferred:null,match:data.match===true};
   }
+  function sessionJSON(data = snapshotForSave()){
+    // Use the same schema and byte boundary on both sides of the round-trip.
+    validateSession(data);
+    const text=JSON.stringify(data,null,2);
+    if(new Blob([text]).size>MAX_SESSION_BYTES)throw new Error('Session JSON must be 32 MB or smaller. Shorten notes or split the session.');
+    return text;
+  }
+  function canRestoreWithoutNetwork(file){
+    return file?.blob || (file?.demo && window.TIMBRE_EMBEDDED?.[file.id]);
+  }
   function applySession(data){
     const valid=validateSession(data);pause();S.loadTokens.A++;S.loadTokens.B++;S.loadingSlots={};
     S.files=valid.files;S.notes=valid.notes;S.slots=valid.slots;S.goal=valid.goal;S.preferred=valid.preferred;S.match=valid.match;S.history=[];S.position=0;S.zoom=1;S.pan=0;
@@ -841,9 +857,9 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     if(!file)return;
     if(S.editorDirty){toast('Save or discard your current note before opening a session.');$('session-input').value='';return;}
     try{
-      if(file.size>3*1024*1024)throw new Error('Session JSON must be under 3 MB.');
+      if(file.size>MAX_SESSION_BYTES)throw new Error('Session JSON must be 32 MB or smaller.');
       const data=JSON.parse(await file.text());applySession(data);persist();
-      await Promise.all(['A','B'].filter(side=>fFor(side)?.demo||fFor(side)?.blob).map(side=>assign(side,S.slots[side],{force:true,silent:true})));
+      await Promise.all(['A','B'].filter(side=>canRestoreWithoutNetwork(fFor(side))).map(side=>assign(side,S.slots[side],{force:true,silent:true})));
       toast('Session opened. Reselect original custom files or folders to reconnect missing audio.');
     }catch(error){notice(`Session not opened: ${error.message} The current workspace was kept.`);}
     finally{$('session-input').value='';}
@@ -908,7 +924,11 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     for(const [id,value]of [['prefer-A','A'],['prefer-B','B'],['prefer-none',null]])$(id).onclick=()=>{S.preferred=value;updatePreference();persist();};
     $('generate-prompt').onclick=buildPrompt;$('prompt-close').onclick=()=>$('prompt-dialog').close();$('copy-prompt').onclick=copyPrompt;
     $('download-prompt').onclick=()=>download($('prompt-text').value,'timbre-sound-brief.txt','text/plain;charset=utf-8');
-    $('save-session').onclick=()=>{if(S.editorDirty){toast('Save or discard your draft before exporting a session.');return;}download(JSON.stringify(snapshotForSave(),null,2),'timbre-session.json','application/json');toast('Session exported. Audio is not included.');};
+    $('save-session').onclick=()=>{
+      if(S.editorDirty){toast('Save or discard your draft before exporting a session.');return;}
+      try{download(sessionJSON(),'timbre-session.json','application/json');toast('Session exported. Audio is not included.');}
+      catch(error){notice(`Session not exported: ${error.message} Your workspace is unchanged.`);}
+    };
     $('restore-session').onclick=()=>$('session-input').click();$('session-input').onchange=e=>restoreSession(e.target.files[0]);
     $('load-demo').onclick=async()=>{if(S.editorDirty){toast('Save or discard the current note first.');return;}await Promise.all([assign('A','demo-a'),assign('B','demo-b')]);};
     $('swap-files').onclick=()=>{if(S.editorDirty){toast('Save or discard the current note first.');return;}pause();const a=S.slots.A;S.slots.A=S.slots.B;S.slots.B=a;S.active=S.active==='A'?'B':'A';S.preferred=S.preferred==='A'?'B':S.preferred==='B'?'A':null;updatePreference();renderAll();renderEditor();persist();toast('A and B swapped. Notes still belong to the original files.');};
@@ -949,7 +969,7 @@ main{max-width:1444px;margin:auto;padding:35px 46px 0}.intro{display:flex;justif
     if(window.TIMBRE_EMBEDDED?.['demo-a']&&window.TIMBRE_EMBEDDED?.['demo-b'])$('demo-network-note').textContent='Both recorded demo files are embedded in this HTML. Imported files, waveform analysis, notes and prompt assembly stay in this browser. No network request is needed. Notes may be saved locally, but audio is not saved in browser storage. Export a session and reselect original custom files when restoring it.';
     const missing=['A','B'].filter(side=>!fFor(side)?.demo&&!fFor(side)?.blob);
     if(restored&&missing.length)notice('Your saved notes are back. Reselect the original custom files or folder to reconnect their audio. Nothing has been uploaded.');
-    for(const side of ['A','B'])if(fFor(side)?.demo||fFor(side)?.blob)assign(side,S.slots[side],{force:true,silent:true});
+    for(const side of ['A','B'])if(canRestoreWithoutNetwork(fFor(side)))assign(side,S.slots[side],{force:true,silent:true});
   }
   // Read-only diagnostics make the prototype straightforward to smoke-test.
   window.Timbre={snapshot:()=>({ready:readyCount(),slots:{...S.slots},active:S.active,playing:S.playing,position:currentPosition(),selection:S.selection?{...S.selection}:null,notes:S.notes.map(n=>({...n,tags:[...n.tags]})),draft:S.draft?{...S.draft}:null,zoom:S.zoom,pan:S.pan,loop:S.loop,match:S.match,files:Array.from(S.files.values()).map(f=>({id:f.id,name:f.name,path:f.path,status:f.status,duration:f.duration,sampleRate:f.sampleRate,channels:f.channels,peak:f.stats?.peak,rms:f.stats?.rms}))})};

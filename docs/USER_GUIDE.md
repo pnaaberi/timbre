@@ -6,7 +6,7 @@
 
 Use **Add audio** to select local recordings. You can select multiple files. **Import folder** preserves a browser-provided relative folder path in the library. The initial pair becomes A and B when two files are selected.
 
-The built-in demo pair is optional. It requires an internet connection the first time and loads two pinned VSCO 2 Community Edition cello samples.
+The built-in demo pair is optional. Choose **Load demo** in a waveform or the Library to download the two pinned VSCO 2 Community Edition cello samples. The app does not request demo audio on initial page load or when restoring a session.
 
 Supported extensions are WAV, MP3, OGG, FLAC, M4A, AAC, AIFF, AIF, OPUS and WebM, subject to browser codec support. Timbre rejects empty files, non-audio files, files over 64 MB and decoded recordings longer than five minutes.
 
@@ -56,6 +56,8 @@ The brief does not send audio or text anywhere. Attach audio separately if anoth
 Timbre automatically saves a lightweight session in the browser's `localStorage` when available. **Save session** exports that state as JSON. **Open session** imports it later.
 
 A session stores filenames, browser-provided relative paths, file sizes, modification times, notes, goals, assignments and decoded-file metadata. It does not store audio bytes. After reopening a session, reselect the original files so the browser can decode them again.
+
+Session JSON is limited to **32 MB and 5,000 notes**. Note saves and exports validate the same schema and byte limit used by import, so an oversized edit is rejected without destroying the existing workspace. Larger sessions that exceeded the old 3 MB import limit can now be reopened up to the new limit. Browser-storage quotas may be smaller than the session-file limit: export a file if local backup is unavailable.
 
 Unsaved editor text, tags and range inputs are also backed up in browser storage after a short debounce and when the page is hidden. On reload, Timbre attempts to restore the draft; reselect its original audio to listen. **Undo** and **Save session** require saving or discarding dirty edits first. JSON exports and generated briefs contain saved notes only, not the browser-only draft. Discarding a draft removes its backup on the next save.
 

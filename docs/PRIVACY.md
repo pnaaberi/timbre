@@ -20,7 +20,7 @@ Timbre never puts imported audio bytes into `localStorage` or the exported sessi
 
 ## Network requests
 
-Only the optional demo pair uses application-level network requests:
+Only an explicit **Load demo** action fetches the optional demo pair. Initial page load and session restoration do not fetch demo audio. Sources:
 
 1. `raw.githubusercontent.com/sgossner/VSCO-2-CE/<pinned-commit>/...wav`
 2. `cdn.jsdelivr.net/gh/sgossner/VSCO-2-CE@<pinned-commit>/...wav`

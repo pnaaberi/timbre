@@ -31,6 +31,12 @@ async function checkWidth(page) {
 async function screenshot(page, name) {
   if (output) await page.screenshot({ path: path.join(output, 'screenshots', name + '.png'), fullPage: true });
 }
+async function loadDemo(page) {
+  await page.click('#open-library');
+  await page.click('#load-demo');
+  await page.waitForFunction(() => Timbre.snapshot().ready === 2);
+  await page.click('#library-close');
+}
 async function run(engine, base) {
   const browser = await engines[engine].launch({ headless: true,
     ...(engine === 'webkit' && process.env.WEBKIT_PATH ? {executablePath:process.env.WEBKIT_PATH} : {}),
@@ -41,9 +47,17 @@ async function run(engine, base) {
     page.on('pageerror', error => errors.push(error.message));
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
     // Deterministic demo responses; no third-party requests or codec dependencies.
-    await context.route('https://**/*', route => route.fulfill({ contentType: 'audio/wav', body: files[0].buffer }));
+    let demoRequests = 0;
+    await context.route('https://**/*', route => {demoRequests++;return route.fulfill({contentType:'audio/wav',body:files[0].buffer});});
     await page.goto(base);
-    await page.waitForFunction(() => Timbre.snapshot().ready === 2);
+    assert.equal((await snapshot(page)).ready, 0, 'fresh page does not load demos');
+    await page.waitForTimeout(200);
+    assert.equal(demoRequests, 0, 'fresh page makes no external requests');
+    await loadDemo(page);
+    assert.equal(demoRequests, 2, 'explicit demo action requests the pair');
+    await page.reload();
+    await page.waitForTimeout(200);
+    assert.equal(demoRequests, 2, 'restoring a demo session does not request the network');
     await page.locator('#file-input').setInputFiles(localFiles);
     await page.waitForFunction(() => Timbre.snapshot().files.filter(f => f.status === 'ready' && f.name.endsWith('.wav') && !f.id.startsWith('demo')).length === 2);
     assert.equal(errors.length, 0, 'navigation/import console');
@@ -126,6 +140,17 @@ async function run(engine, base) {
     assert.equal(session.browserDraft, undefined, 'exports contain only saved notes');
     await page.locator('#session-input').setInputFiles({ name: 'invalid.json', mimeType: 'application/json', buffer: Buffer.from('{}') });
     assert.equal((await snapshot(page)).notes.length, 1, 'invalid session keeps workspace');
+    const largeSession={...session,notes:Array.from({length:600},(_,i)=>({...session.notes[0],id:`large-${i}`,heard:'x'.repeat(3000),wanted:'y'.repeat(3000)}))};
+    const largeBytes=Buffer.from(JSON.stringify(largeSession,null,2));
+    assert.ok(largeBytes.length>3*1024*1024,'regression fixture exceeds old import limit');
+    await page.locator('#session-input').setInputFiles({name:'large.json',mimeType:'application/json',buffer:largeBytes});
+    await page.waitForFunction(()=>Timbre.snapshot().notes.length===600);
+    const largeDownloadEvent=page.waitForEvent('download');await page.click('#save-session');
+    const largeDownload=await largeDownloadEvent;
+    assert.equal(JSON.parse(fs.readFileSync(await largeDownload.path(),'utf8')).notes.length,600,'large session re-exports');
+    await page.locator('#session-input').setInputFiles({name:'oversized.json',mimeType:'application/json',buffer:Buffer.alloc(32*1024*1024+1)});
+    await page.waitForFunction(()=>document.getElementById('banner').textContent.includes('32 MB'));
+    assert.equal((await snapshot(page)).notes.length,600,'oversized session keeps workspace');
     await page.locator('#session-input').setInputFiles({ name: 'session.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(session)) });
     await page.waitForFunction(() => Timbre.snapshot().ready === 2);
     assert.equal((await snapshot(page)).notes.length, 1);
@@ -152,7 +177,7 @@ async function run(engine, base) {
     touchPage.on('pageerror', error => mobileErrors.push(error.message));
     touchPage.on('console', message => { if (message.type() === 'error') mobileErrors.push(message.text()); });
     await mobile.route('https://**/*', route => route.fulfill({ contentType: 'audio/wav', body: files[0].buffer }));
-    await touchPage.goto(base); await touchPage.waitForFunction(() => Timbre.snapshot().ready === 2);
+    await touchPage.goto(base); await loadDemo(touchPage);
     await touchPage.locator('#wave-A').dispatchEvent('wheel',{deltaX:120,cancelable:true});
     assert.equal((await snapshot(touchPage)).pan,0,'1x cannot pan');
     await touchPage.selectOption('#zoom', '4'); await touchPage.click('#tool-pan');
@@ -186,7 +211,7 @@ async function run(engine, base) {
     localPage.on('pageerror',error=>fileErrors.push(error.message));
     localPage.on('console',message=>{if(message.type()==='error')fileErrors.push(message.text());});
     await localPage.goto(require('node:url').pathToFileURL(path.join(root,'index.html')).href);
-    await localPage.waitForFunction(()=>Timbre.snapshot().ready===2);
+    await loadDemo(localPage);
     await localPage.selectOption('#zoom','2');await localPage.locator('#wave-A').focus();await localPage.keyboard.press('End');
     assert.equal((await snapshot(localPage)).pan,1,'file URL navigation smoke');
     assert.deepEqual(fileErrors,[],'file URL console');

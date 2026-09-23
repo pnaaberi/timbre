@@ -70,6 +70,8 @@ The first inline script exposes pure helpers through `TimbreCore`:
 
 The browser runtime script owns state, file import, Web Audio playback, Canvas drawing, dialogs, local persistence and DOM rendering. Pure viewport anchoring and wheel normalization live in `TimbreCore`. A browser-only draft field shares the session storage key but is excluded from JSON exports and ignored on session-file import. No framework or bundler is required.
 
+The runtime uses a shared validated session export/import boundary (32 MB / 5,000 notes). Demo fetching requires an explicit user action; startup and session restoration reuse local handles or embedded demo bytes without network access.
+
 ## Change checklist
 
 Before committing a behavior change:
@@ -93,6 +95,19 @@ Before committing a behavior change:
 - Use the MIT license for Timbre source and retain the upstream CC0 notice for demo audio.
 - Re-test a fresh HTTPS clone after pushing.
 - Verify the exact default-branch commit and remote file manifest.
+
+## GitHub quality gates
+
+`.github/workflows/ci.yml` runs on pull requests and main updates:
+- core/helper and inline-script syntax tests, `npm audit --audit-level=low`;
+- Gitleaks 8.30.1 over reachable history, with a pinned archive SHA-256 and redacted findings;
+- Playwright Chromium/Firefox/WebKit on Linux plus Chromium on Windows/macOS. Linux jobs use a disposable virtual audio sink; no playback skip is configured in CI.
+
+`.github/workflows/codeql.yml` runs JavaScript security-extended analysis on pull requests, main and a weekly schedule. All referenced actions are commit-pinned. Test jobs cannot write repository contents; CodeQL may upload security events. `.github/dependabot.yml` opens weekly npm and Actions updates. Keep the scanner version/checksum current during maintenance.
+
+Review **all** job failures, warnings and Security alerts before merging. CI runner coverage is not physical-device certification. The earlier local compatibility table records local evidence only; current cross-OS assurance comes from the specific passing GitHub run, not from the presence of a matrix in YAML.
+
+Release procedure: create a feature-branch PR; inspect the complete diff and all checks; merge only passing required checks; verify the exact main SHA and a fresh HTTPS checkout; then deploy only to an explicitly selected hosting destination. Main branch protection and repository settings should be read back via GitHub after changes. Do not bypass checks with administrator merges or force pushes.
 
 ## Release scope
 

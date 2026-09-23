@@ -6,7 +6,7 @@ This policy covers the source in this repository. Timbre is a static browser app
 
 ## Reporting a vulnerability
 
-Please do not open a public issue for a suspected security vulnerability. Use GitHub's private vulnerability reporting for this repository when available. If it is unavailable, contact the repository owner through the private contact method attached to the GitHub account and include:
+Please do not open a public issue for a suspected security vulnerability. Use [GitHub private vulnerability reporting](https://github.com/pnaaberi/timbre/security/advisories/new), which is enabled for this repository, and include:
 
 - a short description of the issue;
 - affected file and function or a minimal reproduction;
@@ -18,6 +18,12 @@ Do not include real credentials, private recordings, personal data or confidenti
 ## Response expectations
 
 This is a small personal open-source project, so response time is best effort. Reports are assessed for reproducibility, user impact and whether the issue crosses the documented browser-local data boundary.
+
+## Automated safeguards
+
+GitHub secret scanning and push protection, Dependabot alerts/security updates, and private vulnerability reporting are enabled. The repository defines weekly npm/GitHub Actions dependency-update PRs, a checksum-pinned Gitleaks history scan, dependency audit, cross-platform browser checks, and CodeQL JavaScript analysis. Workflow actions are commit-pinned, checkout does not persist credentials, and ordinary test jobs have read-only repository access. CodeQL alone receives security-event upload permission.
+
+A green scan is bounded evidence, not a guarantee that every vulnerability or secret has been found. Check the latest Actions runs and Security alerts before releasing. No raw audio, session JSON, real-user notes or private QA artifacts belong in CI uploads or source control.
 
 ## Out of scope
 
