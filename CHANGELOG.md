@@ -13,7 +13,8 @@
 
 ### Tests and documentation
 - Added pure navigation tests, inline-script syntax checks and an optional pinned Playwright integration suite.
-- Documented navigation, draft privacy, test commands and bounded browser/device coverage. Physical-device compatibility is not certified; Firefox playback remains unverified in the headless test environment.
+- Replaced regex-based test script extraction with explicit source-format boundaries after CodeQL flagged the old regex. Tests do not sanitize untrusted HTML; no alert suppression is used.
+- Documented navigation, draft privacy, test commands and bounded browser/device coverage. Full hosted Linux/Windows/macOS browser checks pass; physical-device compatibility is not certified.
 
 - Expanded the README with quick start, privacy, limits, development and licensing guidance.
 - Added the user guide, privacy/data-flow note, development checklist and security policy.

@@ -2,16 +2,27 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
+const { countFindings } = require('./check-codeql.cjs');
+assert.equal(countFindings({ runs: [{ results: [] }] }), 0);
+assert.equal(countFindings({ runs: [{ results: [{}] }, { results: [{}] }] }), 2);
+assert.throws(() => countFindings({}), /Invalid SARIF/);
+assert.throws(() => countFindings({ runs: [{ results: null }] }), /Invalid SARIF/);
 
 const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
-const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)];
-assert.ok(scripts.length >= 1, 'expected an inline core script');
+// This is a source-format contract for our own HTML, not an HTML sanitizer.
+// Fail explicitly if the app stops using its three literal inline script blocks.
+const scripts = html.split('<script>').slice(1).map(block => {
+  const end = block.indexOf('</script>');
+  assert.ok(end >= 0, 'inline script must have the exact source closing delimiter');
+  return block.slice(0, end);
+});
+assert.equal(scripts.length, 3, 'expected core, embedded data and runtime scripts');
 
 const sandbox = { module: { exports: {} }, exports: {}, globalThis: {} };
-vm.runInNewContext(scripts[0][1], sandbox, { filename: 'timbre-core.js' });
+vm.runInNewContext(scripts[0], sandbox, { filename: 'timbre-core.js' });
 const core = sandbox.module.exports;
 // Compile every inline script, including the browser runtime.
-for (const [, script] of scripts) new vm.Script(script);
+for (const script of scripts) new vm.Script(script);
 
 assert.equal(core.panForAnchor(12, 1, 6), 0);
 assert.equal(core.panForAnchor(12, 4, 6), .5);
