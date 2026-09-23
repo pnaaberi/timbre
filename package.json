@@ -4,10 +4,14 @@
   "private": true,
   "description": "Local-first browser tool for A/B audio review and timestamped listening notes.",
   "scripts": {
-    "test": "node tests/test-core.cjs"
+    "test": "node tests/test-core.cjs",
+    "test:browser": "node tests/test-browser.cjs"
   },
   "license": "MIT",
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
   }
 }

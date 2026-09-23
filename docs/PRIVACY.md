@@ -20,7 +20,7 @@ Timbre never puts imported audio bytes into `localStorage` or the exported sessi
 
 ## Network requests
 
-Only the optional demo pair uses application-level network requests:
+Only an explicit **Load demo** action fetches the optional demo pair. Initial page load and session restoration do not fetch demo audio. Sources:
 
 1. `raw.githubusercontent.com/sgossner/VSCO-2-CE/<pinned-commit>/...wav`
 2. `cdn.jsdelivr.net/gh/sgossner/VSCO-2-CE@<pinned-commit>/...wav`
@@ -41,6 +41,8 @@ A local-first design does not prevent a user from copying sensitive text to anot
 ## Browser storage
 
 The storage key is `timbre-session-v1`. It is origin-scoped browser storage, not a vault. Clear it through the browser's site-data controls if the browser UI does not provide the desired cleanup behavior.
+
+Browser storage also includes a best-effort backup of the currently edited note, including unsaved text, tags and range inputs. It is written after an edit debounce and on page-hide/unload events. Drafts are restored only from browser storage, not session-file imports, and are excluded from exported sessions and briefs until saved. Discarding or saving a draft removes the draft backup on the next write. Disabling or clearing site storage also removes this recovery path; storage is not encrypted and recovery is not guaranteed.
 
 ## Security claims and limits
 

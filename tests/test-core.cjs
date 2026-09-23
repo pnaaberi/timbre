@@ -10,6 +10,21 @@ assert.ok(scripts.length >= 1, 'expected an inline core script');
 const sandbox = { module: { exports: {} }, exports: {}, globalThis: {} };
 vm.runInNewContext(scripts[0][1], sandbox, { filename: 'timbre-core.js' });
 const core = sandbox.module.exports;
+// Compile every inline script, including the browser runtime.
+for (const [, script] of scripts) new vm.Script(script);
+
+assert.equal(core.panForAnchor(12, 1, 6), 0);
+assert.equal(core.panForAnchor(12, 4, 6), .5);
+assert.equal(core.panForAnchor(12, 8, 6), .5);
+assert.equal(core.panForAnchor(12, 8, -10), 0);
+assert.equal(core.panForAnchor(12, 8, 50), 1);
+assert.equal(core.panForAnchor(0, 8, 1), 0);
+assert.equal(core.panForAnchor(12, NaN, 1), 0);
+assert.equal(core.horizontalWheel({deltaX:80,deltaY:2},800),80);
+assert.equal(core.horizontalWheel({deltaX:2,deltaY:80},800),0);
+assert.equal(core.horizontalWheel({deltaY:3,shiftKey:true,deltaMode:1},800),48);
+assert.equal(core.horizontalWheel({deltaX:-1,deltaMode:2},800),-800);
+assert.equal(core.horizontalWheel({deltaX:Infinity},800),0);
 
 assert.deepEqual(
   JSON.parse(JSON.stringify(core.normalizeRange(0.8, 0.1, 1))),
