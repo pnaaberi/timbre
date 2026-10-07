@@ -161,7 +161,7 @@ async function run(engine, base) {
     // No-storage mode must retain an editable workspace and tell the user backup failed.
     await page.evaluate(() => { Storage.prototype.setItem = () => { throw new Error('Storage disabled'); }; });
     await page.click('#manual-region'); await page.fill('#note-heard', 'No-storage draft');
-    await page.waitForTimeout(250);
+    await page.waitForFunction(() => document.getElementById('session-status').textContent.includes('unavailable'));
     assert.match(await page.textContent('#session-status'), /unavailable/);
     await page.click('#cancel-note');
     await page.evaluate(() => { AudioContext.prototype.resume = () => new Promise(() => {}); });
