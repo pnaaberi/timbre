@@ -111,7 +111,7 @@ Before committing a behavior change:
 - Gitleaks 8.30.1 over reachable history, with a pinned archive SHA-256 and redacted findings;
 - Playwright Chromium/Firefox/WebKit on Ubuntu 24.04 plus Chromium on Windows Server 2025 and macOS 15 hosted runners. Runner labels are explicit, avoiding silent `*-latest` migrations. Linux jobs use a disposable virtual audio sink; no playback skip is configured in CI.
 
-`.github/workflows/codeql.yml` runs JavaScript security-extended analysis on pull requests, main and a weekly schedule. All referenced actions are commit-pinned. Test jobs cannot write repository contents; CodeQL may upload security events. `.github/dependabot.yml` opens weekly npm and Actions updates. Keep the scanner version/checksum current during maintenance.
+`.github/workflows/codeql.yml` runs separate JavaScript and GitHub Actions security-extended analyses on pull requests, main and a weekly schedule. Each language uploads its own SARIF category and must pass the same zero-findings gate; the existing `CodeQL analysis` JavaScript context is preserved and `CodeQL Actions analysis` covers workflows. Core regressions reject missing language jobs or a removed SARIF gate. All referenced actions are commit-pinned. Test jobs cannot write repository contents; CodeQL may upload security events. `.github/dependabot.yml` opens weekly npm and Actions updates. Keep the scanner version/checksum current during maintenance.
 
 After analysis, `tests/check-codeql.cjs` requires generated SARIF reports and rejects any reported findings. This gate is part of the required CodeQL analysis job; an analysis/upload success alone is insufficient. Core tests cover empty, non-empty and malformed result handling. No CodeQL alert suppression is configured.
 

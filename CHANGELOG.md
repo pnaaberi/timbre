@@ -21,6 +21,7 @@
 - Added the user guide, privacy/data-flow note, development checklist and security policy.
 
 ### Repository safeguards
+- Close the Actions-language CodeQL coverage gap with a separate required analysis context, independent SARIF category and the existing fail-on-findings gate; preserve JavaScript and browser coverage.
 - Added least-privilege, commit-pinned CI: core/syntax tests, dependency audit, checksum-pinned secret scan, Linux Chromium/Firefox/WebKit and Windows/macOS Chromium regressions.
 - Added CodeQL analysis and weekly Dependabot npm/Actions updates; enabled GitHub vulnerability alerts/security updates and private vulnerability reporting.
 - Hosting remains a separate explicit deployment decision; a source push does not create a Pages site.

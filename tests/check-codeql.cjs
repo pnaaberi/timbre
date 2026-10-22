@@ -10,6 +10,32 @@ function countFindings(report) {
   }, 0);
 }
 
+// Source-format contract for our maintained workflow, not a general YAML parser.
+function validateWorkflowSource(source) {
+  const blocks = new Map();
+  let current;
+  for (const line of source.split('\n')) {
+    const job = /^  ([a-z][a-z-]*):$/.exec(line);
+    if (job) {
+      current = job[1];
+      blocks.set(current, []);
+    } else if (current) {
+      blocks.get(current).push(line);
+    }
+  }
+  for (const [id, language] of [['analyze', 'javascript-typescript'], ['analyze-actions', 'actions']]) {
+    const body = (blocks.get(id) || []).join('\n');
+    for (const expected of [
+      `languages: ${language}`,
+      `category: /language:${language}`,
+      'persist-credentials: false',
+      'security-events: write',
+      'run: node tests/check-codeql.cjs "$SARIF_DIRECTORY"',
+    ]) {
+      if (!body.includes(expected)) throw new Error(`CodeQL ${id} missing ${expected}`);
+    }
+  }
+}
 if (require.main === module) {
   try {
     const directory = process.argv[2];
@@ -23,4 +49,4 @@ if (require.main === module) {
     process.exitCode = 1;
   }
 }
-module.exports = { countFindings };
+module.exports = { countFindings, validateWorkflowSource };
