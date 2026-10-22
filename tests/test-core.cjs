@@ -2,11 +2,17 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const { countFindings } = require('./check-codeql.cjs');
+const { countFindings, validateWorkflowSource } = require('./check-codeql.cjs');
 assert.equal(countFindings({ runs: [{ results: [] }] }), 0);
 assert.equal(countFindings({ runs: [{ results: [{}] }, { results: [{}] }] }), 2);
 assert.throws(() => countFindings({}), /Invalid SARIF/);
 assert.throws(() => countFindings({ runs: [{ results: null }] }), /Invalid SARIF/);
+
+const codeqlWorkflow = fs.readFileSync(path.join(__dirname, '..', '.github', 'workflows', 'codeql.yml'), 'utf8');
+validateWorkflowSource(codeqlWorkflow);
+assert.throws(() => validateWorkflowSource(codeqlWorkflow.replace('  analyze-actions:', '  missing-actions:')), /CodeQL analyze-actions/);
+assert.throws(() => validateWorkflowSource(codeqlWorkflow.replace('languages: actions', 'languages: javascript-typescript')), /languages: actions/);
+assert.throws(() => validateWorkflowSource(codeqlWorkflow.replaceAll('run: node tests/check-codeql.cjs', 'run: echo')), /check-codeql/);
 
 const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 // This is a source-format contract for our own HTML, not an HTML sanitizer.
