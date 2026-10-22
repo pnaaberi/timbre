@@ -12,6 +12,7 @@
 - Larger navigation touch targets and a full-width mobile timeline slider.
 
 ### Tests and documentation
+- Maintenance: update pinned CodeQL/setup-node actions and Playwright to 1.64.1; production HTML, demo/privacy behavior and runtime dependencies are unchanged.
 - Added pure navigation tests, inline-script syntax checks and an optional pinned Playwright integration suite.
 - Replaced regex-based test script extraction with explicit source-format boundaries after CodeQL flagged the old regex. Tests do not sanitize untrusted HTML; no alert suppression is used.
 - Documented navigation, draft privacy, test commands and bounded browser/device coverage. Full hosted Linux/Windows/macOS browser checks pass; physical-device compatibility is not certified.
